@@ -2,15 +2,27 @@
   "session_name": "NextAuth",
   "windows": [
     {
-      "name": "editor",
+      "name": "Editor",
       "commands": [
         "vim"
       ]
     },
     {
-      "name": "server",
+      "name": "Server",
       "commands": [
         "n dev"
+      ]
+    },
+        {
+      "name": "Docker",
+      "commands": [
+        "docker compose up"
+      ]
+    },
+    {
+      "name": "Prisma",
+      "commands": [
+        "npx prisma studio"
       ]
     }
   ]
