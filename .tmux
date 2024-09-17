@@ -16,7 +16,7 @@
         {
       "name": "Docker",
       "commands": [
-        "docker compose up"
+        "n docker"
       ]
     },
     {

@@ -22,6 +22,5 @@ export default auth((req) => {
                 req.url
             )
         )
-
     }
 })
