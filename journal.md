@@ -7,4 +7,4 @@
 - shared implementation apis (js library export a function that gets called like outsourcing implementation. e.g. GET and POST habdler in spi route as catch all segments)
 - not everything needs to be a button. (e.g. signup link in signin form)
 - expose auth api, so external can login and use api without ui
-- jwt = userid encrypted in a cookie. server has the private key to extract. therfore managed by the client, verified by the server
+- jwe = JSON Web Encryption = user information encrypted inside a cookie. server has the private key to extract. therfore managed by the client (server doesnt store info), verified by the server
