@@ -6,7 +6,7 @@ const authConfig: NextAuthConfig = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: { type: "text", name: "user" },
+                username: { type: "text", name: "username" },
                 password: { type: "password", name: "password" }
             },
             async authorize(credentials): Promise<User | null> {
