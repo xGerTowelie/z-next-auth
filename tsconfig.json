@@ -17,6 +17,9 @@
         "name": "next"
       }
     ],
+    "types": [
+        "@prisma/client"
+    ],
     "paths": {
       "@/*": ["./src/*"]
     }
