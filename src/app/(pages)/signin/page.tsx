@@ -2,14 +2,15 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Icons } from "@/components/ui/icons"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Icons } from "@/components/ui/icons"
+import Link from 'next/link'
 
-export default function SignUp() {
-    const [username, setUsername] = useState('')
+export default function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -19,18 +20,17 @@ export default function SignUp() {
         e.preventDefault()
         setIsLoading(true)
         try {
-            const response = await fetch('/api/auth/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password }),
+            const result = await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
             })
 
-            if (response.ok) {
-                router.push('/')
-            } else {
-                const data = await response.json()
-                console.error(data.error)
+            if (result?.error) {
+                console.error(result.error)
                 // You might want to show an error message to the user here
+            } else {
+                router.push('/')
             }
         } catch (error) {
             console.error('An error occurred:', error)
@@ -43,22 +43,11 @@ export default function SignUp() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <Card className="w-full max-w-md">
                 <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold">Sign up</CardTitle>
-                    <CardDescription>Create an account to get started</CardDescription>
+                    <CardTitle className="text-2xl font-bold">Login</CardTitle>
+                    <CardDescription>Enter your credentials to access your account</CardDescription>
                 </CardHeader>
                 <form onSubmit={handleSubmit}>
                     <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="username">Username</Label>
-                            <Input
-                                id="username"
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                placeholder="John Doe"
-                                required
-                            />
-                        </div>
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
@@ -82,13 +71,19 @@ export default function SignUp() {
                             />
                         </div>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex flex-col space-y-4">
                         <Button className="w-full" type="submit" disabled={isLoading}>
                             {isLoading && (
                                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                             )}
-                            Sign up
+                            Log in
                         </Button>
+                        <div className="text-sm text-center">
+                            Don&apos;t have an account?{' '}
+                            <Link href="/signup" className="text-blue-500 hover:underline">
+                                Sign up
+                            </Link>
+                        </div>
                     </CardFooter>
                 </form>
             </Card>

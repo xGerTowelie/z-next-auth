@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthConfig, User } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import { validateUser } from "@/lib/auth"
+import { validateUser, LoginInput } from "@/lib/auth"
 
 export const BASE_PATH = "/api/auth"
 
@@ -9,26 +9,41 @@ const authConfig: NextAuthConfig = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: { label: "Username", type: "text" },
+                email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials): Promise<User | null> {
-                if (!credentials?.username || !credentials?.password) {
+                const typedCredentials = credentials as Record<"email" | "password", string>
+
+                if (!typedCredentials.email || !typedCredentials.password) {
                     return null
                 }
 
-                const user = await validateUser(credentials.username, credentials.password)
-                if (user) {
-                    return user
+                const loginData: LoginInput = {
+                    email: typedCredentials.email,
+                    password: typedCredentials.password,
                 }
 
-                console.log("Invalid credentials provided:", credentials.username)
+                const user = await validateUser(loginData)
+
+                if (user) {
+                    return {
+                        id: user.id,
+                        name: user.username,
+                        email: user.email,
+                    }
+                }
+
+                console.log("Invalid credentials provided:", typedCredentials.email)
                 return null
             }
         })
     ],
     basePath: BASE_PATH,
     secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+        signIn: "/signin"
+    }
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig)
+export const { handlers, auth, signOut } = NextAuth(authConfig)

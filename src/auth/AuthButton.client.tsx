@@ -1,8 +1,9 @@
 "use client"
 
-import { signIn, signOut } from "@/auth/helpers"
+import { signOut } from "@/auth/helpers"
 import { Button } from "@/components/ui/button"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 export const AuthButton = () => {
     const session = useSession()
@@ -13,7 +14,10 @@ export const AuthButton = () => {
         )
     } else {
         return (
-            <Button variant="default" onClick={async () => await signIn()}>Sign In</Button>
+            <>
+                <Link href="/signup"><Button variant="default">Sign Up</Button></Link>
+                <Link href="/signin"><Button variant="default">Sign In</Button></Link>
+            </>
         )
     }
 
