@@ -10,7 +10,17 @@ const authConfig: NextAuthConfig = {
                 password: { type: "password", name: "password" }
             },
             async authorize(credentials): Promise<User | null> {
-                console.log(credentials)
+                // for now hardcode the credentials
+                if (credentials.username === "admin" && credentials.password === "pass") {
+                    return {
+                        id: "0",
+                        name: "admin",
+                        email: "admin@admin.com"
+                    }
+                }
+
+                // log if wrong
+                console.log("Wrong credentials provided:", credentials)
                 return null
             }
         })
