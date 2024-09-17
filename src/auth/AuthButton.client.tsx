@@ -10,7 +10,7 @@ export const AuthButton = () => {
 
     if (session.data?.user) {
         return (
-            <Button variant="default" onClick={async () => await signOut()}>Sign Out</Button>
+            <Button variant="secondary" onClick={async () => await signOut()}>Sign Out</Button>
         )
     } else {
         return (
