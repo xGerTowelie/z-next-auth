@@ -2,7 +2,7 @@
 
 ## Basic setup
 
-To understand the basic setup, please have a look at the history of this repo. All steps are documented in their own commits. 
+To understand the basic setup, please have a look at the history of this repo. All steps are documented in their own commits. These can be accessed here: [All Commits(main)](https://github.com/xGerTowelie/z-next-auth/commits/main/)
 
 ## Providers
 
