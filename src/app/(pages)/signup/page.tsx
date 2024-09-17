@@ -26,7 +26,8 @@ export default function SignUp() {
             })
 
             if (response.ok) {
-                router.push('/')
+                router.replace('/')
+                router.refresh()
             } else {
                 const data = await response.json()
                 console.error(data.error)

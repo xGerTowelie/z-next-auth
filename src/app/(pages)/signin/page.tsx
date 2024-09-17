@@ -30,7 +30,8 @@ export default function SignIn() {
                 console.error(result.error)
                 // You might want to show an error message to the user here
             } else {
-                router.push('/')
+                router.replace('/')
+                router.refresh()
             }
         } catch (error) {
             console.error('An error occurred:', error)
