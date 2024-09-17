@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthConfig, User } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+import { validateUser } from "@/lib/auth"
 
 export const BASE_PATH = "/api/auth"
 
@@ -8,27 +9,26 @@ const authConfig: NextAuthConfig = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: { type: "text", name: "username" },
-                password: { type: "password", name: "password" }
+                username: { label: "Username", type: "text" },
+                password: { label: "Password", type: "password" }
             },
             async authorize(credentials): Promise<User | null> {
-                // for now hardcode the credentials
-                if (credentials.username === "admin" && credentials.password === "pass") {
-                    return {
-                        id: "0",
-                        name: "admin",
-                        email: "admin@admin.com"
-                    }
+                if (!credentials?.username || !credentials?.password) {
+                    return null
                 }
 
-                // log if wrong
-                console.log("Wrong credentials provided:", credentials)
+                const user = await validateUser(credentials.username, credentials.password)
+                if (user) {
+                    return user
+                }
+
+                console.log("Invalid credentials provided:", credentials.username)
                 return null
             }
         })
     ],
     basePath: BASE_PATH,
-    secret: process.env.NEXTAUTH_SECRET
+    secret: process.env.NEXTAUTH_SECRET,
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig)

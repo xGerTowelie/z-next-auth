@@ -10,6 +10,10 @@ export const config = {
 export default auth((req) => {
     const url = new URL(req.url)
 
+    if (url.pathname === '/signup') {
+        return NextResponse.next()
+    }
+
     // ignore for "home" page
     if (!req.auth && url?.pathname !== "/") {
 

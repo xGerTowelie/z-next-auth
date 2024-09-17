@@ -4,5 +4,5 @@ import { auth } from "@/auth"
 
 export async function getLoggedInUser() {
     const session = await auth()
-    return session?.user?.name ?? null
+    return session?.user?.email ?? null
 }
