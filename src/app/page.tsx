@@ -1,5 +1,7 @@
 import AuthButton from "@/auth/AuthButton.server";
+import { Button } from "@/components/ui/button";
 import { getLoggedInUser } from "@/server/actions";
+import Link from "next/link";
 
 export default async function Home() {
     // ask the server whats the current user
@@ -10,6 +12,7 @@ export default async function Home() {
     return (
         <div>
             <h1>Home</h1>
+            <Link href="/signup"><Button variant="default">Sign Up</Button></Link>
             <AuthButton />
             <p>Current User: {user}</p>
         </div>
