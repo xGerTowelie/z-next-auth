@@ -40,3 +40,17 @@ Have a look at the `@/auth/index.ts` file to see how this was changed, to work w
 ## Usage
 
 To use the login and logout functionality, we can import the server component of the `<AuthButton />` from `@/auth/AuthButton.server`. This will triggers all the magic of the authentication process.
+
+## Configure middleware
+
+The middleware runs on every request, that matches the configured regex:
+
+```ts ./src/middleware.ts
+export const config = {
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"]
+}
+```
+
+This will run for all requests, that arent directly to the /api, from nextjs itself when accessing static content, or using images and finally the favicon.
+
+The default export of the middleware is used by nextjs. Here we run the `auth()` function from our `@/auth/index.ts` file.
