@@ -37,4 +37,6 @@ const response = await AuthHandler(request, {
 
 Have a look at the `@/auth/index.ts` file to see how this was changed, to work with a database access over prisma. Here we have full controll, on what it means to "authenticate".
 
+## Usage
 
+To use the login and logout functionality, we can import the server component of the `<AuthButton />` from `@/auth/AuthButton.server`. This will triggers all the magic of the authentication process.
