@@ -1,7 +1,20 @@
-import NextAuth, { NextAuthConfig } from "next-auth"
+import NextAuth, { NextAuthConfig, User } from "next-auth"
+import Credentials from "next-auth/providers/credentials"
 
 const authConfig: NextAuthConfig = {
-    providers: [],
+    providers: [
+        Credentials({
+            name: "Credentials",
+            credentials: {
+                username: { type: "text", name: "user" },
+                password: { type: "password", name: "password" }
+            },
+            async authorize(credentials): Promise<User | null> {
+                console.log(credentials)
+                return null
+            }
+        })
+    ],
     basePath: "/api/auth",
     secret: process.env.NEXTAUTH_SECRET
 }
