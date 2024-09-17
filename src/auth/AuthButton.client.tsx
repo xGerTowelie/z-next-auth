@@ -15,8 +15,8 @@ export const AuthButton = () => {
     } else {
         return (
             <>
-                <Link href="/signup"><Button variant="default">Sign Up</Button></Link>
-                <Link href="/signin"><Button variant="default">Sign In</Button></Link>
+                <Link href="/signup"><Button variant="outline">Sign Up</Button></Link>
+                <Link href="/signin"><Button variant="secondary">Sign In</Button></Link>
             </>
         )
     }
