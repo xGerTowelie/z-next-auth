@@ -22,7 +22,7 @@
     {
       "name": "Prisma",
       "commands": [
-        "npx prisma studio"
+        "n studio"
       ]
     }
   ]
